@@ -17,12 +17,47 @@
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
 
 DOCUMENTATION = '''
-
+---
+module: ipa_facts
+short_description:
+version_added:
+options:
+  path:
+    required: false
+    description: Path of the ipa config file, if not using the default
 '''
 
 EXAMPLES = '''
+- name: Gather information about a enrolled server
+  ipa_facts:
 
+- name: Display the Kerberos realm
+  debug: msg="Realm is {{ ansible_ipa_realm }}"
 '''
+
+RETURN = '''
+ipa_realm:
+    description: Kerberos realm of the system
+    type: string
+    returned: always
+ipa_basedn
+    description: Base DN of the directory
+    type: string
+    returned: always
+ipa_domain
+    description: IPA Domain
+    type: string
+    returned: always
+ipa_server
+    description: Main IPA server
+    type: string
+    returned: always
+ipa_xmlrpc_uri
+    description: IPA XMLRPC URI
+    type: string
+    returned: always
+'''
+
 import ConfigParser
 
 def main():
