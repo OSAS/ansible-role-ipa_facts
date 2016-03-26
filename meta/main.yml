@@ -1,0 +1,17 @@
+---
+galaxy_info:
+  author: Michael Scherer
+  description: Role to distribute ipa_facts module, to get facts about IPA on enrolled system
+  company: Red Hat
+  license: MIT
+  min_ansible_version: 2.0
+  # Only tested with EL 7 and EL 6. No reason anything do 
+  # not work anywhere else, just no time to test.
+  # I would welcome patches 
+  platforms:
+  - name: EL
+    versions:
+    - 7
+  categories:
+  - system
+dependencies:
