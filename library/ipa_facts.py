@@ -32,7 +32,7 @@ EXAMPLES = '''
   ipa_facts:
 
 - name: Display the Kerberos realm
-  debug: msg="Realm is {{ ansible_ipa_realm }}"
+  debug: msg="Realm is {{ ipa_realm }}"
 '''
 
 RETURN = '''
