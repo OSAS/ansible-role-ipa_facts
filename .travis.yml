@@ -1,0 +1,19 @@
+---
+language: python
+python: "2.7"
+before_install:
+ - sudo apt-get update -qq
+install:
+  - pip install ansible-lint
+  - pip install flake8
+script:
+# verify the syntax of the playbook
+  - ansible-lint tasks/main.yml
+# verify python script with pyflakes and pep8
+ - set -e ; for i in library/*.py; do flake8 $i ;done
+# setup the environment to run ansible
+  - "echo '---\n- hosts: 127.0.0.1\n  remote_user: root\n  roles:' > role.yml"
+  - echo "  - ${TRAVIS_REPO_SLUG/*\//}" >> role.yml
+  - "echo '[defaults]\nroles_path = ../\n' > ansible.cfg"
+# run a 2nd syntax check ( not sure if ansible-lint shouldn't already do that )
+  - ansible-playbook -i '127.0.0.1,' --syntax-check role.yml
