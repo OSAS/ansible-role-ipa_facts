@@ -1,5 +1,5 @@
 #!/usr/bin/python
-#coding: utf-8 -*-
+# coding: utf-8 -*-
 
 # (c) 2016, Michael Scherer <mscherer@redhat.com>
 #
@@ -15,6 +15,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
+
+import ConfigParser
 
 DOCUMENTATION = '''
 ---
@@ -58,24 +60,23 @@ ipa_xmlrpc_uri
     returned: always
 '''
 
-import ConfigParser
 
 def main():
     module = AnsibleModule(
         argument_spec=dict(
-            path=dict(required=False, type='path', default='/etc/ipa/default.conf')
+            path=dict(required=False, type='path',
+                      default='/etc/ipa/default.conf')
         ),
     )
     params = module.params
 
     config = ConfigParser.ConfigParser()
     config.read(params['path'])
-    ansible_facts = {} 
-    for (k,v) in config.items('global'):
-        ansible_facts['ipa_' +k] = v
+    ansible_facts = {}
+    for (k, v) in config.items('global'):
+        ansible_facts['ipa_' + k] = v
     module.exit_json(changed=False, ansible_facts=ansible_facts)
 
 # this is magic, see lib/ansible/module_common.py
 from ansible.module_utils.basic import *
 main()
-
